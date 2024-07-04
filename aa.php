@@ -1,18 +1,25 @@
 <?php
-
-function find_all_wp_config($start_dir) {
+function find_wp_configs($start_dir) {
     $wp_configs = [];
-    $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($start_dir));
-
-    foreach ($rii as $file) {
-        if ($file->isDir()) { 
-            continue;
-        }
-        if (basename($file) === 'wp-config.php') {
-            $wp_configs[] = $file->getPathname();
+    $dirs = [$start_dir];
+    
+    while (!empty($dirs)) {
+        $dir = array_pop($dirs);
+        if (is_dir($dir)) {
+            $files = scandir($dir);
+            foreach ($files as $file) {
+                if ($file == '.' || $file == '..') {
+                    continue;
+                }
+                $path = $dir . DIRECTORY_SEPARATOR . $file;
+                if (is_dir($path)) {
+                    $dirs[] = $path;
+                } elseif ($file == 'wp-config.php') {
+                    $wp_configs[] = realpath($path);
+                }
+            }
         }
     }
-
     return $wp_configs;
 }
 
@@ -72,7 +79,7 @@ $start_dir = __DIR__;
 echo "Memulai pencarian dari: $start_dir<br>";
 
 // Temukan semua path ke file wp-config.php
-$wp_configs = find_all_wp_config($start_dir);
+$wp_configs = find_wp_configs($start_dir);
 
 if (empty($wp_configs)) {
     die('Tidak ada wp-config.php ditemukan.');
